@@ -1,0 +1,218 @@
+{{See also|Manual:Coding conventions/Selenium}}
+{{TNT|Shortcut|CC/Ruby}}
+{{TOCRight}}
+
+This article describes the '''coding conventions''' for '''Ruby''' files of [[Manual:Code|MediaWiki]] related codebases.
+
+Unlike Python with its [http://legacy.python.org/dev/peps/pep-0008/ PEP 8], Ruby has no truly canonical style guide to which to reference. There are, however, a few well respected guides that can serve as reference points for Rubyists, most prominently those from [https://github.com/styleguide/ruby GitHub], [http://rb-tutorial.herokuapp.com/blog/2012/01/30/ruby-style-guide/ Heroku], and the [https://github.com/bbatsov/ruby-style-guide community-driven guide from bbatsov].
+
+== Starting point ==
+
+For reasons both public-spirited and practical, we have adopted the [https://github.com/bbatsov/ruby-style-guide bbatsov guide] as a starting point; it's the most participatory of the three and comes with the [https://github.com/bbatsov/rubocop rubocop code analyzer] that can be easily customized and integrated into our [[Continuous_integration|continuous integration]].
+
+== Exceptions ==
+
+There are a handful of areas where the bbatsov guide attempts to draw the line with seemingly arbitrary limits or where there's quite a bit of disagreement among commenters. In most of these cases, we've opted to simply ignore the rules and defer in good faith to the developer.
+
+Exceptions and additions to the [https://github.com/bbatsov/ruby-style-guide bbatsov guide] are enumerated herein.
+
+=== Method length ===
+
+; RuboCop ID : <code>Metrics/MethodLength</code>
+; Enforced : no
+
+In general, developers should follow the single responsibility principle, but the bbatsov guide's 10-line limit seems rather arbitrary.<ref>Single Responsibility Principle, Wikipedia [https://en.wikipedia.org/wiki/Single_responsibility_principle]</ref>
+
+=== Line length ===
+
+; RuboCop ID : <code>Metrics/LineLength</code>
+; Enforced : yes, but at a 100 character limit
+
+It's suggested in the bbatsov guide that lines should never exceed 80 characters in length, but there's an ongoing debate over it.<ref>The Ruby Style Guide, Source Code Layout, bbatsov [https://github.com/bbatsov/ruby-style-guide#80-character-limits]</ref><ref>The Ruby Style Guide, Issue #207 [https://github.com/bbatsov/ruby-style-guide/issues/207]</ref> In fact, statistical analysis of the ten most popular Ruby projects on GitHub shows that a limit of 80 would invalidate more than 8% of existing lines while a more liberal limit of 100 or 120 would only invalid around 3% and 1% respectively.<ref>The Ruby Style Guide, Issue #207, lee-dohm [https://github.com/bbatsov/ruby-style-guide/issues/207#issuecomment-24459812]</ref> Falling back on our own [[Manual:Coding_conventions|general coding conventions]], 100 lines will be our current limit.
+
+=== Multi-line method chaining ===
+
+; RuboCop ID : <code>Style/DotPosition</code>
+; Enforced : per project
+
+Two options are presented in the bbatsov guide.<ref>The Ruby Style Guide, Multi-line Method Chains, bbatsov [https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains]</ref> We allow either form as long as you stay consistent within each project.
+
+==== OK ====
+<syntaxhighlight lang="ruby">
+things.map { |thing| thing.age }.
+  reduce { |sum, age| sum + age }
+</syntaxhighlight>
+
+==== Also OK ====
+<syntaxhighlight lang="ruby">
+things.map { |thing| thing.age }
+  .reduce { |sum, age| sum + age }
+</syntaxhighlight>
+
+=== Signaling exceptions ===
+
+; RuboCop ID : <code>Style/SignalException</code>
+; Enforced : no
+
+The bbatsov guide suggests using <code>fail</code> to signal new exceptions and <code>raise</code> to re-raise rescued ones.<ref>The Ruby Style Guide, Fail Method, bbatsov [https://github.com/bbatsov/ruby-style-guide#fail-method]</ref> However, there's some objection to the rule based on the lack of the former in existing Ruby projects or prominent Ruby literature, and the contrived nature of useful semantic differences given as a justification.<ref>The Ruby Style Guide, Issue #233 [https://github.com/bbatsov/ruby-style-guide/issues/233]</ref> For now, we don't enforce this rule.
+
+==== OK ====
+<syntaxhighlight lang="ruby">
+def foo
+  # ...
+
+  raise "warning!" if error_condition_one?
+  raise "oops. something terrible has happened" if error_condition_two?
+
+  # ...
+end
+
+begin
+  foo
+rescue => exception
+  raise unless exception.message.start_with?("warning!")
+end
+</syntaxhighlight>
+
+=== Aliasing methods ===
+
+; RuboCop ID : <code>Style/Alias</code>
+; Enforced : no
+
+The bbatsov guide suggests that <code>alias_method</code> should always be used over <code>alias</code>.<ref>The Ruby Style Guide, bbatsov [https://github.com/bbatsov/ruby-style-guide#alias-method]</ref> However, there are cases where <code>alias</code> can be just as clear or even more appropriate when written alongside methods defined with <code>def</code>.<ref>The Ruby Style Guide, Issue #377 [https://github.com/bbatsov/ruby-style-guide/issues/377]</ref>
+
+In short, it's ok to use <code>alias</code> within the body of a class or module definition to alias a method also defined therein, but it should not be used to alias methods defined by a macro; <code>alias_method</code> is more appropriate in that case since it's a macro itself.
+
+==== Good ====
+<syntaxhighlight lang="ruby">
+class List
+  attr_reader :length
+  alias_method :size, :length
+
+  def fold_left(&accumulator)
+    # yield left to right (head to tail)
+  end
+
+  def fold_right(&accumulator)
+    # yield right to left (tail to head)
+  end
+
+  alias fold fold_left
+end
+</syntaxhighlight>
+
+==== Bad ====
+<syntaxhighlight lang="ruby">
+class List
+  attr_reader :length
+  alias size length
+
+  def fold_left(&accumulator)
+    # yield left to right (head to tail)
+  end
+
+  def fold_right(&accumulator)
+    # yield right to left (tail to head)
+  end
+
+  alias_method :fold, :fold_left
+end
+</syntaxhighlight>
+
+=== String literals ===
+
+; RuboCop ID : <code>Style/StringLiterals</code>
+; Enforced : per project
+
+Either single or double quotes are acceptable defaults for string literals, as long as you stay consistent within projects. Unlike in PHP, the Ruby implementation of string literals yields identical runtime performance between the two forms.
+
+=== Trivial attribute methods ===
+
+; RuboCop ID : <code>Style/TrivialAccessors</code>
+; Enforced : yes, but using the <code>ExactNameMatch</code> option
+
+The bbatsov guide discourages methods that amount to simple attribute accessors, suggesting use of <code>attr</code> macros instead.<ref>The Ruby Style Guide, bbatsov [https://github.com/bbatsov/ruby-style-guide#attr_family]</ref> While the use of attribute macros is generally common practice among Ruby developers, the rule's default options don't allow for methods that expose variables of a different name.
+
+==== Good ====
+<syntaxhighlight lang="ruby">
+class List
+  attr_reader :length
+end
+
+class List
+  def length
+    @size
+  end
+end
+</syntaxhighlight>
+
+==== Bad ====
+<syntaxhighlight lang="ruby">
+class List
+  def length
+    @length
+  end
+end
+</syntaxhighlight>
+
+== RuboCop ==
+
+RuboCop check is enabled for MediaWiki and related repos that contain Ruby code, enforcing the conventions outlined here. In most cases, a configuration file has been initialized using the <code>--auto-gen-config</code> option; the generated config will ignore all violations by default, allowing maintainers to address them one by one.
+
+=== Ignoring or customizing RuboCop rules ===
+
+When you want to ignore a rule or customize its behavior, whether you're going by the recommendations in this guide or not, you'll need to add some configuration to the <code>.rubocop.yml</code> file in the project's root directory (after the <code>inherit_from:</code> entry).
+
+For example, to ignore the <code>Metrics/LineLength</code> rule altogether, you'd add the following.
+
+<syntaxhighlight lang="yaml">
+Metrics/LineLength:
+  Enable: false
+</syntaxhighlight>
+
+To customize it to using a more liberal line length limit, say 120, you'd add this.
+
+<syntaxhighlight lang="yaml">
+Metrics/LineLength:
+  Max: 120
+</syntaxhighlight>
+
+Please consult the [https://github.com/bbatsov/rubocop#configuration RuboCop documentation] for possible rule names and options.
+
+=== Base configuration ===
+
+Following is a RuboCop configuration that reflects the exceptions above. Please use it as a starting point for your Ruby projects.
+
+<syntaxhighlight lang="yaml">
+AllCops:
+  # Only enforce rules that have an entry in the style guide
+  StyleGuideCopsOnly: true
+
+Metrics/LineLength:
+  Max: 100
+
+Metrics/MethodLength:
+  Enabled: false
+
+Style/Alias:
+  Enabled: false
+
+Style/SignalException:
+  Enabled: false
+
+# Pick one and stay consistent
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+#  EnforcedStyle: double_quotes
+
+Style/TrivialAccessors:
+  ExactNameMatch: true
+</syntaxhighlight>
+
+== References ==
+
+<references />
+
+{{TNT|Conventions navigation}}
+[[Category:Ruby{{translation}}]]
+

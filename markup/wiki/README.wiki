@@ -1,0 +1,86 @@
+{{primary sources|date=December 2016}}
+{{prose|date=January 2017}}
+{{Infobox website
+| name            = GitLab
+| logo            = GitLab logo.png
+| screenshot      = gitlab_screenshot_december_2015.png
+| caption         = 
+| url             = {{URL|https://gitlab.com}}
+| slogan          = "Tools for modern developers"
+| commercial      = Yes
+| type            = [[Git (software)|Git]] repository hosting service <br /> Collaborative revision control
+| registration    = Optional
+| language        = [[English language|English]]
+| owner           = GitLab Inc.
+| author          = 
+| alexa           = {{increase}} 2,973 ({{as of|2016|12|16|alt=Dec 2016}})<ref>{{cite web|url=http://www.alexa.com/siteinfo/gitlab.com |title=GitLab.com Alexa Ranking | publisher=Alexa Internet|accessdate=Dec 16, 2016}}</ref>
+| key_people      = {{plainlist|
+* [[Sid Sijbrandij]] ([[CEO]])
+* [[Dmitriy Zaporozhets]] ([[Chief_technology_officer|CTO]])
+}}
+| founder = {{plainlist| 
+* [[Sid Sijbrandij]]
+* [[Dmitriy Zaporozhets]]
+* [[Valery Sizov]]
+}}
+| num users       = 
+| content_license = [[open source software|Open-source]], [[commercial software|Commercial]]
+| num_employees   = 150<ref>{{cite web|url=https://about.gitlab.com/team/|title=GitLab Team}}</ref>
+| area served     = [[World]]wide
+| industry        = [[Software]] 
+| programming_language = [[Ruby_(programming_language)|Ruby]] and [[Go_(programming_language)|Go]]
+| launch date     = {{start date and age|2011}}
+| current status  = Online
+}}
+'''GitLab''' is a web-based [[Git (software)|Git]] repository manager with [[wiki]] and [[Issue_tracking_system|issue tracking]] features, using an [[Open-source_software|open source]] license, developed by GitLab Inc. The software was written by [[Dmitriy Zaporozhets]] and [[Valery Sizov]] from [[Ukraine]]. The code is written in [[Ruby (programming language)|Ruby]]. Later, some parts have been rewritten in [[Go_(programming_language)|Go]]. As of December 2016, the company has 150 team members<ref>{{cite web|title=GitLab Team Page|url=https://about.gitlab.com/team/|website=GitLab|accessdate=17 Dec 2016}}</ref> and more than 1400 [[Open-source_software|open source]] contributors.<ref>{{cite web|title=GitLab Contributors|url=http://contributors.gitlab.com|website=GitLab.com|accessdate=17 Dec 2016}}</ref> It is used by organisations such as [[IBM]], [[Sony]], [[Jülich Research Center]], [[NASA]], [[Alibaba Group|Alibaba]], [[Invincea]], [[O’Reilly Media]], [[Leibniz-Rechenzentrum|Leibniz-Rechenzentrum (LRZ)]] and [[CERN]].<ref>{{cite web|url=http://thenextweb.com/insider/2014/06/04/github-rival-gitlab-building-business-just-0-1-paying-customers/|title=GitLab is building a business with 0.1% of paying customers|author=Andrii Degeler|date=4 June 2014|work=The Next Web}}</ref><ref>{{cite web|url=http://information-technology.web.cern.ch/services/cern-commercial|title=Services - CERN or commercial provider?|author=CERN|work=cern.ch}}</ref><ref>{{cite web|url=https://www.lrz.de/services/netzdienste/gitlab_en/|title=Services - GitLab}}</ref>
+
+==History==
+* Originally, the product was named GitLab and was fully [[free and open source software]] distributed under the [[MIT License]].<ref>{{cite web|url=http://thenextweb.com/apps/2011/10/13/ship-it-faster-and-cheaper-gitlab-is-github-for-your-own-servers/|title=Ship it faster and cheaper - GitLab is GitHub for your own servers - The Next Web|author=Drew Olanoff|date=13 October 2011|work=The Next Web}}</ref>
+
+* In July 2013,<ref>{{cite web|url=https://about.gitlab.com/2013/07/22/announcing-gitlab-enterprise-edition/|title=GitLab - Announcing GitLab 6.0 Enterprise Edition|work=gitlab.com}}</ref> the product was split:
+** GitLab CE: Community Edition
+** GitLab EE: Enterprise Edition <br> At that time, the license of GitLab CE and GitLab EE remained free and open source software distributed under the MIT License.
+
+* In February 2014, GitLab announced<ref>{{cite web|url=https://about.gitlab.com/2014/02/11/gitlab-ee-license-change/|title=GitLab - GitLab Enterprise Edition license change|work=gitlab.com}}</ref> adoption of an [[open core]] business model. GitLab EE is set under a proprietary license, and contains features not present in the CE version.<ref>{{cite web|url=https://about.gitlab.com/features/#compare|title=GitLab - Features|work=gitlab.com}}</ref>
+
+* In July 2015, the company raised an additional $1.5 million in [[seed funding]].<ref name=raises>{{cite web|first=Jordan|last=Novet|url=http://venturebeat.com/2015/07/09/y-combinator-backed-github-competitor-gitlab-raises-1-5m/|title=Y Combinator-backed GitHub competitor GitLab raises $1.5M|work=VentureBeat}}</ref> Customers as of 2015 included [[Alibaba Group]], [[IBM]], and [[SpaceX]].<ref name=raises/>
+
+* In September 2015, GitLab raised $4 million in Series A funding from [[Khosla Ventures]].<ref>{{Cite web|title = GitLab Raises $4M Series A Round From Khosla Ventures|url = https://techcrunch.com/2015/09/17/gitlab-raises-4m-series-a-round-from-khosla-ventures-for-its-open-source-collaboration-platform|website = TechCrunch|accessdate = 17 Dec 2016}}</ref>
+
+* In July 2016, the GitLab CEO confirmed the [[open core]] feature of the company.<ref>https://about.gitlab.com/2016/07/14/building-an-open-source-company-interview-with-gitlabs-ceo/</ref>
+
+* In September 2016, GitLab raised $20 million in Series B funding from [[August Capital]] and others.<ref>{{Cite web|url=http://social.techcrunch.com/2016/09/13/gitlab-secures-20-million-series-b/|title=GitLab secures $20 million Series B|last=Miller|first=Ron|website=TechCrunch|access-date= 3 Nov 2016}}</ref>
+
+* In January 2017, a database administrator accidentally deleted the production database. 6 hours worth of issue and merge request data was lost.<ref>{{Cite web|url=https://about.gitlab.com/2017/02/01/gitlab-dot-com-database-incident|title=GitLab.com Database Incident|access-date= 1 Feb 2017}}</ref>
+
+* On March 15, 2017, GitLab announced the acquisition of [[Gitter]]. Included in the announcement was the stated intent that Gitter would continue as a standalone project. Additionally, GitLab announced that the code would become open source under an MIT License no later than June 2017.<ref>{{Cite web|url=https://about.gitlab.com/2017/03/15/gitter-acquisition/|title=Gitter is joining the GitLab team|website=GitLab|access-date=2017-03-15}}</ref>
+
+
+== See also ==
+* [[Comparison of source code hosting facilities]]
+* [https://botleg.com/stories/setup-gitlab-for-docker-based-development/ Setup Gitlab for Docker based development]
+
+==References==
+{{reflist|30em}}
+
+==External links==
+{{commons category|GitLab}}
+*{{Official website}}
+
+{{YC companies}}
+
+[[Category:Bug and issue tracking software]]
+[[Category:Collaborative projects]]
+[[Category:Community websites]]
+[[Category:Computing websites]]
+[[Category:Cross-platform free software]]
+[[Category:Free project management software]]
+[[Category:Project hosting websites]]
+[[Category:Version control]]
+[[Category:Technology companies of the Netherlands]]
+[[Category:Open-source software hosting facilities]]
+[[Category:Free software programmed in Ruby]]
+[[Category:Software using the MIT license]]
+[[Category:Y Combinator companies]]
+[[Category:Continuous integration]]<!-- see https://about.gitlab.com/gitlab-ci/ -->
+

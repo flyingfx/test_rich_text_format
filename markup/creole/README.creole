@@ -1,0 +1,16 @@
+= Creole
+
+{{http://www.wikicreole.org/attach/LeftMenu/viki.png|Creole}}\\
+Creole is a common wiki markup language intended to be used across many different wikis. Its aim is not to replace existing markup, but instead to enable wiki users to transfer basic content seamlessly across wikis, and lower the barrier to entry for novice users.
+
+= Regular Language–Recursive Descent Parser
+
+This text has been formatted using a //regular language–recursive descent// (RLRD) parser design. That is, rules are applied in a recursive descent that matches the ultimate XML output; at each level of the descent, a set of regular expressions define the text that each child rule can "consume". Rules are applied greedily (i.e. earliest-match first). Unlike standard markup designs, this makes edge-cases between rules explicit, and allows a parser to be certified XHTML-compliant.
+
+The parser is written in Javascript, allowing greater flexibility in the deployment of the parser. The underlying RLRD design can be implemented in any language.
+
+= Live Preview
+
+This document demonstrates a live Javascript preview, using this RLRD renderer. Editing the above text area will change this text.
+
+The markup follows the basic rules of [[http://www.wikicreole.org/wiki/Creole0.4|Creole v0.4]].
